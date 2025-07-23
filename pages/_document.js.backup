@@ -1,0 +1,280 @@
+import { Html, Head, Main, NextScript } from "next/document";
+
+export default function Document() {
+  return (
+    <Html lang="en">
+      <Head>
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        {/* Meta tags */}
+        <meta name="theme-color" content="#3b82f6" />
+        <meta
+          name="description"
+          content="HealthCare - Find doctors, book appointments, and manage your healthcare needs online"
+        />
+        <meta
+          name="keywords"
+          content="healthcare, doctors, appointments, medical, health, booking"
+        />
+        <meta name="author" content="HealthCare Team" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="HealthCare - Your Health, Our Priority"
+        />
+        <meta
+          property="og:description"
+          content="Find qualified doctors, book appointments instantly, and take control of your healthcare journey"
+        />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:url" content="https://healthcare.com" />
+        <meta property="og:site_name" content="HealthCare" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="HealthCare - Your Health, Our Priority"
+        />
+        <meta
+          name="twitter:description"
+          content="Find qualified doctors, book appointments instantly, and take control of your healthcare journey"
+        />
+        <meta name="twitter:image" content="/twitter-image.jpg" />
+
+        {/* PWA meta tags */}
+        <meta name="application-name" content="HealthCare" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="HealthCare" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-TileColor" content="#3b82f6" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        {/* Preload critical resources */}
+        <link
+          rel="preload"
+          href="/fonts/inter-var.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+
+        {/* Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+
+        {/* Critical CSS variables */}
+        <style jsx>{`
+          :root {
+            --color-primary: #3b82f6;
+            --color-primary-dark: #2563eb;
+            --color-primary-light: #60a5fa;
+            --color-secondary: #10b981;
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            --font-family: "Inter", -apple-system, BlinkMacSystemFont,
+              "Segoe UI", Roboto, sans-serif;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          html {
+            font-family: var(--font-family);
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+
+          body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--color-gray-50);
+          }
+
+          #__next {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+          }
+
+          /* Loading styles */
+          .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+          }
+
+          .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--color-gray-200);
+            border-top: 3px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          }
+
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+
+          /* Focus styles for accessibility */
+          :focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+          }
+
+          /* Print styles */
+          @media print {
+            .no-print {
+              display: none !important;
+            }
+
+            body {
+              background: white !important;
+            }
+          }
+
+          /* Dark mode support */
+          @media (prefers-color-scheme: dark) {
+            .theme-system {
+              --color-background: var(--color-gray-900);
+              --color-surface: var(--color-gray-800);
+              --color-text-primary: var(--color-gray-100);
+              --color-text-secondary: var(--color-gray-300);
+            }
+          }
+
+          /* Reduced motion support */
+          @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
+          }
+
+          /* High contrast support */
+          @media (prefers-contrast: high) {
+            :root {
+              --color-primary: #0066cc;
+              --color-secondary: #008000;
+            }
+          }
+        `}</style>
+
+        {/* Google Analytics - Replace with your GA ID */}
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                    page_title: document.title,
+                    page_location: window.location.href,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+
+        {/* No-script fallback */}
+        <noscript>
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "#f9fafb",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              padding: "2rem",
+              textAlign: "center",
+              fontFamily: "system-ui, sans-serif",
+            }}
+          >
+            <h1 style={{ color: "#1f2937", marginBottom: "1rem" }}>
+              JavaScript Required
+            </h1>
+            <p style={{ color: "#6b7280", maxWidth: "400px" }}>
+              HealthCare requires JavaScript to function properly. Please enable
+              JavaScript in your browser settings and reload the page.
+            </p>
+          </div>
+        </noscript>
+      </body>
+    </Html>
+  );
+}
