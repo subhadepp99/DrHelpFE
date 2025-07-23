@@ -1,0 +1,49 @@
+name: Deploy Next.js to EC2
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Check out code
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      # 2. Set up Node.js environment
+      - name: Use Node.js 22
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm install
+        
+      # 4. Build Next.js app
+      - name: Build
+        run: npm run build
+        
+      # 5. Configure SSH
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          
+      # 6. Deploy to EC2
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+            "rm -rf /home/${{ secrets.EC2_USER }}/app/.next"
+          scp -o StrictHostKeyChecking=no -r .next ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/app
+          
+      # 7. Restart PM2
+      - name: Restart PM2
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+            "cd /home/${{ secrets.EC2_USER }}/app && pm2 restart all"
