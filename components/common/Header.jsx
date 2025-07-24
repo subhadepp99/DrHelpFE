@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext";
@@ -40,7 +40,7 @@ const Header = () => {
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="text-2xl font-bold text-primary-600">
-                DrHelp HealthCare
+                DrHelpCare
               </Link>
             </div>
 
