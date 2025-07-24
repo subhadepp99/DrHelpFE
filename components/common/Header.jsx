@@ -40,7 +40,7 @@ const Header = () => {
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="text-2xl font-bold text-primary-600">
-                DrHelpCare
+                DrHelpCare test
               </Link>
             </div>
 
